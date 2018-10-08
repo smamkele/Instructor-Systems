@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <!--
 Provides the form for logging in to the system
 -->
