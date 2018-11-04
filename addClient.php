@@ -2,31 +2,69 @@
 
 session_start();
 require_once'include/dbconn.php';
-
-$date = $_POST['date'];
-$client_id = $_POST['client_id'];
-$name     = $_POST['name'];
-$surname  = $_POST['surname'];
-$address  = $_POST['address'];
-$gender = $_POST['gender'];
-$license_code = $_POST['license_code'];
-$contact_number = $_POST['contact_number'];
-$num_of_lessons = $_POST['num_of_lessons'];
-$start_date = $_POST['start_date'];
-$start_time = $_POST['start_time'];
-$lesson_duration = $_POST['lesson_duration'];
-$instructor = $_POST['instructor_id'];
-
+if (isset($_POST['date'])) {
+    $date = $_POST['date'];
+}
+if (isset($_POST['client_id'])) {
+    $client_id = $_POST['client_id'];
+}
+if (isset($_POST['name'])) {
+    $name = $_POST['name'];
+}
+if (isset($_POST['surname'])) {
+    $surname = $_POST['surname'];
+}
+if (isset($_POST['address'])) {
+    $address = $_POST['address'];
+}
+if (isset($_POST['gender'])) {
+    $gender = $_POST['gender'];
+}
+if (isset($_POST['license_code'])) {
+    $license_code = $_POST['license_code'];
+}
+if (isset($_POST['contact_number'])) {
+    $contact_number = $_POST['contact_number'];
+}
+if (isset($_POST['num_of_lessons'])) {
+    $num_of_lessons = $_POST['num_of_lessons'];
+}
+if (isset($_POST['start_date'])) {
+    $start_date = $_POST['start_date'];
+}
+if (isset($_POST['start_time'])) {
+    $start_time = $_POST['start_time'];
+}
+if (isset($_POST['lesson_duration'])) {
+    $lesson_duration = $_POST['lesson_duration'];
+}
+if (isset($_POST['instructor_id'])) {
+    $instructor_id = $_POST['instructor_id'];
+}
 
 $sql = "INSERT INTO client(date,client_id, name,surname,address,"
-        . "gender, license_code, contact_number, num_of_lessons, start_date,"
-        . " start_time, lesson_duration,instructor_id ) VALUES('$date','$client_id','$name','$surname',"
-        . "'$address','$gender', '$license_code', '$contact_number',"
-        . "'$num_of_lessons', '$start_date','$start_time','$lesson_duration','$instructor_id')";
-if (mysqli_query($conn, $sql)) {
-    header("Location:client.php");
-} else {
-    exit("Error:could not process client details ");  
-    
+        . "gender, license_code, contact_number)"
+        . " VALUES('$date','$client_id','$name','$surname',"
+        . "'$address','$gender', '$license_code', '$contact_number')";
+
+if(!mysqli_query($conn, $sql)){
+     exit("Error:could not process client details ");
 }
+ else {
+    echo 'Client details successfully added to the database';
+}
+$strSQL = "INSERT INTO lesson(num_of_lessons, start_date, start_time,"
+        . " lesson_duration, client_id,instructor_id) VALUES('$num_of_lessons', "
+        . "'$start_date', '$start_time','$lesson_duration', '$client_id', '$instructor_id')";
+
+
+if(!mysqli_query($conn, $strSQL)){
+     exit("Error:could not process lesson details ");
+} 
+header("Location:client.php");
+mysqli_close($conn);   
+
+
+
+
 
