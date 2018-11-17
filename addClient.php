@@ -39,13 +39,15 @@ if (isset($_POST['lesson_duration'])) {
     $lesson_duration = $_POST['lesson_duration'];
 }
 if (isset($_POST['instructor_id'])) {
-    $instructor_id = $_POST['instructor_id'];
+    $lesson_duration = $_POST['instructor_id'];
 }
 
-$sql = "INSERT INTO client(date,client_id, name,surname,address,"
-        . "gender, license_code, contact_number)"
-        . " VALUES('$date','$client_id','$name','$surname',"
-        . "'$address','$gender', '$license_code', '$contact_number')";
+
+
+$sql = "INSERT INTO client(client_id, name,surname,address,"
+        . "gender,contact_number)"
+        . " VALUES('$client_id','$name','$surname',"
+        . "'$address','$gender', '$contact_number')";
 
 if(!mysqli_query($conn, $sql)){
      exit("Error:could not process client details ");
@@ -53,15 +55,15 @@ if(!mysqli_query($conn, $sql)){
  else {
     echo 'Client details successfully added to the database';
 }
-$strSQL = "INSERT INTO lesson(num_of_lessons, start_date, start_time,"
-        . " lesson_duration, client_id,instructor_id) VALUES('$num_of_lessons', "
-        . "'$start_date', '$start_time','$lesson_duration', '$client_id', '$instructor_id')";
-
+$strSQL = "INSERT INTO lesson(date,license_code,num_of_lessons, start_date, start_time,"
+        . " lesson_duration, client_id,instructor_id) VALUES('$date','$license_code','$num_of_lessons', "
+        . "'$start_date', '$start_time','$lesson_duration', '$client_id',$instructor_id)";
 
 if(!mysqli_query($conn, $strSQL)){
-     exit("Error:could not process lesson details ");
+    exit("Error:could not process lesson details ");
 } 
-header("Location:client.php");
+header("Location:client.php"); 
+
 mysqli_close($conn);   
 
 

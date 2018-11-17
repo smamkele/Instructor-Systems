@@ -8,7 +8,7 @@ Provides Clients lesson bookings and adjust remaining lesson for each client
         <link href="css/instructor.css" rel="stylesheet" type="text/css"/>
         <title>Lesson Booking</title>
     </head>
-  <h1 id="pghead"><b>Driving School System</b></h1> 
+  <h1 id="pghead"><b>Driving School Management</b></h1>     
         <?php
         require_once 'include/dbconn.php';
         ?>

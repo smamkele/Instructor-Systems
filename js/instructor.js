@@ -5,9 +5,9 @@ function validateForm() {
         document.login.username.focus();
         return false;
     }
-    if (document.login.psword.value === "") {
+    if (document.login.password.value === "") {
         alert("Please enter password");
-        document.login.psword.focus();
+        document.login.password.focus();
         return false;
     }
 
@@ -23,12 +23,12 @@ function submform() {
             document.forms[0][0].focus();
             result = false;
         }
-        if (document.client.client_id.value !== '' && document.client.client_id.value.length < 13 ||document.client.client_id.value.length >13) {
+        if (document.client.client_id.value !== '' && document.client.client_id.value.length < 13 || document.client.client_id.value.length > 13) {
             alert("ID number must be 13 numbers long");
             document.forms[0][1].focus();
             result = false;
         }
-        if (document.client.contact_number.value !== '' && document.client.contact_number.value.length < 10 ||document.client.contact_number.value.length > 10) {
+        if (document.client.contact_number.value !== '' && document.client.contact_number.value.length < 10 || document.client.contact_number.value.length > 10) {
             alert("Contact number must be 10 numbers long");
             document.forms[0][1].focus();
             result = false;
@@ -37,12 +37,11 @@ function submform() {
     }
 }
 
-function getClient(str){
-    if(str ===""){
-    document.getElementById('selected_client').innerHtml=str;
-    return;
-}
-  else { 
+function getClient(str) {
+    if (str === "") {
+        document.getElementById('selected_client').innerHtml = "";
+        return;
+    } else {
         if (window.XMLHttpRequest) {
             // code for IE7+, Firefox, Chrome, Opera, Safari
             xmlhttp = new XMLHttpRequest();
@@ -50,14 +49,35 @@ function getClient(str){
             // code for IE6, IE5
             xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
         }
-        xmlhttp.onreadystatechange = function() {
+        xmlhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
                 document.getElementById("selected_client").innerHTML = this.responseText;
             }
         };
-        xmlhttp.open("GET","getLesson.php?q="+str,true);
+        xmlhttp.open("GET", "getAttendance.php? q = " + str, true);
         xmlhttp.send();
     }
-    
-}
 
+}
+function getInstructor(str) {
+    if (str === "") {
+        document.getElementById('selected_instructor').innerHtml = "";
+        return;
+    } else {
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                document.getElementById("selected_instructor").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET", "addClient.php? q = " + str, true);
+        xmlhttp.send();
+    }
+
+}

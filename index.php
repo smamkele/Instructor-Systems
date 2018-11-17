@@ -14,7 +14,7 @@ Provides the form for logging in to the system
     require_once'include/dbconn.php';
     ?>
     <body>
-        <h1 id="pghead"><b>Welcome to Driving School System</b></h1>        
+        <h1 id="pghead"><b>Driving School Management System</b></h1>        
         <div  id="login">           
             <form 
                 action="login.php"

@@ -22,17 +22,16 @@ and open the template in the editor.
                     <th colspan="6">Clients List</th>
                 </tr>
                 <tr>
-                    <th>Date</th><th>Client Name</th><th>Gender</th><th>License Code</th><th>Address</th><th>Contact Number</th>
+                    <th>Identity Number</th><th>Name</th><th>Gender</th><th>License Code</th><th>Address</th><th>Contact Number</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
                 $html = "";
-
-                $recset = $conn->query("SELECT date,name,gender,license_code,address,contact_number FROM client ORDER BY date");
+                $recset = $conn->query("SELECT* FROM client");
                 if (mysqli_num_rows($recset) > 0) {
                     while ($row = $recset->fetch_assoc()) {
-                        $html .= "<tr><td>$row[date]</td><td>$row[name]</td><td>$row[gender]</td><td>$row[license_code]</td><td>$row[address]</td><td>$row[contact_number]</td></tr>";
+                        $html .= "<tr><td>$row[client_id]</td><td>$row[name]</td><td>$row[surname]</td><td>$row[gender]</td><td>$row[address]</td><td>$row[contact_number]</td></tr>";
                     }
                     echo $html;
                 } else {
