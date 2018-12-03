@@ -5,11 +5,11 @@ require_once'include/dbconn.php';
 if (isset($_POST['date'])) {
     $date = $_POST['date'];
 }
-if (isset($_POST['client_id'])) {
-    $client_id = $_POST['client_id'];
+if (isset($_POST['clientId'])) {
+    $client_id = $_POST['clientId'];
 }
-if (isset($_POST['name'])) {
-    $name = $_POST['name'];
+if (isset($_POST['firstName'])) {
+    $name = $_POST['firstName'];
 }
 if (isset($_POST['surname'])) {
     $surname = $_POST['surname'];
@@ -23,8 +23,8 @@ if (isset($_POST['gender'])) {
 if (isset($_POST['license_code'])) {
     $license_code = $_POST['license_code'];
 }
-if (isset($_POST['contact_number'])) {
-    $contact_number = $_POST['contact_number'];
+if (isset($_POST['contactNumber'])) {
+    $contact_number = $_POST['contactNumber'];
 }
 if (isset($_POST['num_of_lessons'])) {
     $num_of_lessons = $_POST['num_of_lessons'];
@@ -42,10 +42,10 @@ if (isset($_POST['instructor_id'])) {
     $instructor_id = $_POST['instructor_id'];
 }
 
-$sql = "INSERT INTO client(date,client_id, name,surname,address,"
-        . "gender, license_code, contact_number)"
-        . " VALUES('$date','$client_id','$name','$surname',"
-        . "'$address','$gender', '$license_code', '$contact_number')";
+$sql = "INSERT INTO client(clientId, firstName,surname,address,"
+        . "gender, contactNumber)"
+        . " VALUES('$clientId','$firstName','$surname',"
+        . "'$address','$gender', '$contactNumber')";
 
 if(!mysqli_query($conn, $sql)){
      exit("Error:could not process client details ");
@@ -53,8 +53,8 @@ if(!mysqli_query($conn, $sql)){
  else {
     echo 'Client details successfully added to the database';
 }
-$strSQL = "INSERT INTO lesson(num_of_lessons, start_date, start_time,"
-        . " lesson_duration, client_id,instructor_id) VALUES('$num_of_lessons', "
+$strSQL = "INSERT INTO lesson(date,license_code,num_of_lessons, start_date, start_time,"
+        . " lesson_duration, clientId,instructor_id) VALUES('$date','$license_code','$num_of_lessons', "
         . "'$start_date', '$start_time','$lesson_duration', '$client_id', '$instructor_id')";
 
 

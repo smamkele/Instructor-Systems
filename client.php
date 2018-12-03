@@ -26,11 +26,11 @@
 
                 <label>Identity number</label>
                 <input type="text" 
-                       name = "client_id"> <br><br>
+                       name = "clientId"> <br><br>
 
                 <label> Name</label>
                 <input type = "text"
-                       name = "name" ><br><br>
+                       name = "firstName" ><br><br>
 
                 <label>Surname </label>
                 <input type = "text"
@@ -52,7 +52,7 @@
 
                 <label>Phone number</label>
                 <input type = "text"
-                       name = "contact_number"> <br><br>
+                       name = "contactNumber"> <br><br>
 
                 <label>Total lessons</label>
                 <input type = "number"
@@ -82,8 +82,8 @@
                 <p><hr width="1300">
             </form>
             <?PHP
-            if (isset($session['client_id'])) {
-                echo $session['client_id'];
+            if (isset($session['clientId'])) {
+                echo $session['clientId'];
             }
             ?>
         </div>        

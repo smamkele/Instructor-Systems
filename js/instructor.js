@@ -5,9 +5,9 @@ function validateForm() {
         document.login.username.focus();
         return false;
     }
-    if (document.login.psword.value === "") {
+    if (document.login.password.value === "") {
         alert("Please enter password");
-        document.login.psword.focus();
+        document.login.password.focus();
         return false;
     }
 

@@ -3,9 +3,9 @@
  session_start();
 require_once'dbconn.php';
         $username = $_POST['username'];
-        $password = $_POST['psword'];
+        $password = $_POST['password'];
 
-        $sql = ("SELECT * FROM user WHERE username = '$username' AND psword = '$password' ");
+        $sql = ("SELECT * FROM user WHERE username = '$username' AND password = '$password' ");
         $result = $conn->query($sql);
         if (!$row = $result->fetch_assoc()) {
             echo"Your username or password is incorrect";
