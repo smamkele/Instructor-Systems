@@ -11,9 +11,10 @@
     <?php
     session_start();
     require_once'include/dbconn.php';
+    $sql = $conn->query("SELECT * FROM instructor");
     ?>
     <body>
-        <h1 id="pghead"><b>Driving School System</b></h1> 
+        <h1 id="pghead"><b>Driving School Management System</b></h1>     
         <div id="personal">           
             <h2>Client Booking information </h2>            
             <form action="addClient.php" 
@@ -46,9 +47,12 @@
                        value="male">Male
                 <br><br>
 
-                <label>License code</label>
-                <input type = "text"
-                       name = "license_code"> <br><br>
+                <label>License code:</label>             
+                <input type="radio" name="license_code"                
+                       value="10">10
+                <input type="radio" name="license_code"                
+                       value="08">08
+                <br><br> 
 
                 <label>Phone number</label>
                 <input type = "text"
@@ -70,9 +74,18 @@
                 <input type = "text" 
                        name = "lesson_duration"><br><br> 
 
-                <label>Instructor</label>
-                <input type = "text" 
-                       name = "instructor_id"><br><br>
+                <label>Instructor:</label>
+                <select name ="instructor_id" onchange="getInstructor(this.value)">
+                    <option value="instructor_id">Instructor Name</option>                
+                    <?php
+                    if (mysqli_num_rows($sql) > 0) {
+                        while ($row = $sql->fetch_assoc()) {
+                            echo "<option name='instructor_option' id='instructor_option' value='$row[instructor_id]'>$row[instructor_id].$row[instructor_name]</option>";
+                        }
+                    }
+                    ?>             
+                </select>
+                <br><br>
 
                 <input type="submit" 
                        name="addClient" value=" Save Client "> 

@@ -11,32 +11,28 @@ Updates client attendance by adjusting lessons attended
     </head>
     <?php
     session_start();
-    require_once'include/dbconn.php';    
+    require_once'include/dbconn.php';
     $sql = $conn->query("SELECT * FROM lesson");
+    $sql1 = $conn->query("SELECT * FROM client");
     ?>
     <body>
-        <h1 id="pghead"><b>Driving School System</b></h1>
+        <h1 id="pghead"><b>Attendance</b></h1>
         <div  id="attendance">
-            <form action="updateClient.php" method="POST" >
+            <form action="" method="POST" >
                 <label >Client Details:</label>           
                 <select name ="client" onchange="getClient(this.value)">
                     <option value="">Client info</option>
                     <?php
-                    if (mysqli_num_rows($sql) > 0) {
-                        while ($row = $sql->fetch_assoc()) {
-                            echo "<option id='client_option' value='$row[client_id]'>$row[client_id]</option>";
-                            
+                    if (mysqli_num_rows($sql1) > 0) {
+                        while ($row = $sql1->fetch_assoc()) {
+                            echo "<option name='client_option' id='client_option' value='$row[client_id]'>$row[name].$row[surname]</option>";
                         }
                     }
                     ?>
-                </select>
-                <div id="selected_client"></div>     
-                <p id="attbtn">      
-                    <input type="submit" name="button" id="button" value="Submit">
-                    <input type="submit" name="button2" id="button2" value="Reset">
-                    
-                </p>
+                </select>                
             </form>
         </div>
+        <div id="selected_client">                 
+                </div> 
     </body>
 </html>
