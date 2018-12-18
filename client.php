@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-
 <html>
 
     <head>
         <meta charset="UTF-8">
         <link href="css/instructor.css" rel="stylesheet" type="text/css"/> 
         <script src="js/instructor.js" type="text/javascript"></script>
-        <title>Client Information</title>
+        <title> Client Information</title>
     </head>
     <?php
     session_start();
@@ -26,12 +25,12 @@
                        name = "date"><br><br>
 
                 <label>Identity number</label>
-                <input type="text" 
-                       name = "clientId"> <br><br>
+                <input type="number" 
+                       name = "client_id"> <br><br>
 
                 <label> Name</label>
                 <input type = "text"
-                       name = "firstName" ><br><br>
+                       name = "name" ><br><br>
 
                 <label>Surname </label>
                 <input type = "text"
@@ -55,8 +54,8 @@
                 <br><br> 
 
                 <label>Phone number</label>
-                <input type = "text"
-                       name = "contactNumber"> <br><br>
+                <input type = "number"
+                       name = "contact_number"> <br><br>
 
                 <label>Total lessons</label>
                 <input type = "number"
@@ -93,10 +92,10 @@
                     Exit</button>      
 
                 <p><hr width="1300">
-            </form>
+            </form>           
             <?PHP
-            if (isset($session['clientId'])) {
-                echo $session['clientId'];
+            if (isset($session['client_id'])) {
+                echo $session['client_id'];
             }
             ?>
         </div>        
