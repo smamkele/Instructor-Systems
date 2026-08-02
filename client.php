@@ -1,104 +1,119 @@
 <!DOCTYPE html>
 <html>
+       <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <link href="css/instructor.css" rel="stylesheet" type="text/css"/>
+              <script src="js/instructor.js" type="text/javascript"></script>
+              <title>Client Information</title>
+       </head>
+       <?php
+       require_once 'include/auth.php';
+       require_once 'include/dbconn.php';
+       $sql = $conn->query("SELECT * FROM instructor");
+       ?>
+       <body>
+              <div class="page-shell">
+                     <header class="page-header">
+                            <div>
+                                   <h1 id="pghead">Client Booking Information</h1>
+                            </div>
+                            <button class="button secondary" onclick="location.href = 'home.php'" type="button">Back to Dashboard</button>
+                     </header>
 
-    <head>
-        <meta charset="UTF-8">
-        <link href="css/instructor.css" rel="stylesheet" type="text/css"/> 
-        <script src="js/instructor.js" type="text/javascript"></script>
-        <title> Client Information</title>
-    </head>
-    <?php
-    session_start();
-    require_once'include/dbconn.php';
-    $sql = $conn->query("SELECT * FROM instructor");
-    ?>
-    <body>
-        <h1 id="pghead"><b>Driving School Management System</b></h1>     
-        <div id="personal">           
-            <h2>Client Booking information </h2>            
-            <form action="addClient.php" 
-                  method="POST"
-                  name ="client"
-                  onsubmit= "return submform();">
-                <label>Date</label>
-                <input type ="date" 
-                       name = "date"><br><br>
+                     <section class="card form-card">
+                            <div class="card-inner">
+                                   <form action="addClient.php" method="POST" name="client" onsubmit="return submform();">
+                                          <fieldset>
+                                                 <legend>Booking details</legend>
+                                                 <div class="form-grid">
+                                                        <div class="form-field">
+                                                               <label for="date">Date</label>
+                                                               <input id="date" type="date" name="date" required>
+                                                        </div>
+                                                        <div class="form-field">
+                                                               <label for="client_id">Identity number</label>
+                                                               <input id="client_id" type="text" name="client_id" inputmode="numeric" maxlength="13" minlength="13" pattern="[0-9]{13}" placeholder="13 digits" required>
+                                                        </div>
 
-                <label>Identity number</label>
-                <input type="number" 
-                       name = "client_id"> <br><br>
+                                                        <div class="form-field">
+                                                               <label for="name">First name</label>
+                                                               <input id="name" type="text" name="name" autocomplete="given-name" required>
+                                                        </div>
+                                                        <div class="form-field">
+                                                               <label for="surname">Surname</label>
+                                                               <input id="surname" type="text" name="surname" autocomplete="family-name" required>
+                                                        </div>
 
-                <label> Name</label>
-                <input type = "text"
-                       name = "name" ><br><br>
+                                                        <div class="form-field-full">
+                                                               <label for="address">Address</label>
+                                                               <input id="address" type="text" name="address" autocomplete="street-address" required>
+                                                        </div>
 
-                <label>Surname </label>
-                <input type = "text"
-                       name = "surname"><br><br> 
+                                                        <div class="form-field-full">
+                                                               <span class="field-label">Gender</span>
+                                                               <div class="radio-group">
+                                                                      <label class="radio-option"><input type="radio" name="gender" value="female" required> Female</label>
+                                                                      <label class="radio-option"><input type="radio" name="gender" value="male"> Male</label>
+                                                               </div>
+                                                        </div>
 
-                <label>Address</label>
-                <input type = "text" 
-                       name = "address"><br><br>
-                Gender:
-                <input type="radio" name="gender"                
-                       value="female">Female
-                <input type="radio" name="gender"                
-                       value="male">Male
-                <br><br>
+                                                        <div class="form-field-full">
+                                                               <span class="field-label">License code</span>
+                                                               <div class="radio-group">
+                                                                      <label class="radio-option"><input type="radio" name="license_code" value="10" required> 10</label>
+                                                                      <label class="radio-option"><input type="radio" name="license_code" value="8"> 08</label>
+                                                               </div>
+                                                        </div>
 
-                <label>License code:</label>             
-                <input type="radio" name="license_code"                
-                       value="10">10
-                <input type="radio" name="license_code"                
-                       value="08">08
-                <br><br> 
+                                                        <div class="form-field">
+                                                               <label for="contact_number">Phone number</label>
+                                                               <input id="contact_number" type="text" name="contact_number" inputmode="numeric" maxlength="10" minlength="10" pattern="[0-9]{10}" placeholder="10 digits" required>
+                                                        </div>
+                                                        <div class="form-field">
+                                                               <label for="num_of_lessons">Total lessons</label>
+                                                               <input id="num_of_lessons" type="number" name="num_of_lessons" min="1" required>
+                                                        </div>
 
-                <label>Phone number</label>
-                <input type = "number"
-                       name = "contact_number"> <br><br>
+                                                        <div class="form-field">
+                                                               <label for="start_date">Start date</label>
+                                                               <input id="start_date" type="date" name="start_date" required>
+                                                        </div>
+                                                        <div class="form-field">
+                                                               <label for="start_time">Start time</label>
+                                                               <input id="start_time" type="time" name="start_time" required>
+                                                        </div>
 
-                <label>Total lessons</label>
-                <input type = "number"
-                       name = "num_of_lessons" ><br><br>
+                                                        <div class="form-field">
+                                                               <label for="lesson_duration">Duration</label>
+                                                               <input id="lesson_duration" type="number" name="lesson_duration" min="1" required>
+                                                        </div>
+                                                        <div class="form-field">
+                                                               <label for="instructor_id">Instructor</label>
+                                                               <select id="instructor_id" name="instructor_id" onchange="getInstructor(this.value)" required>
+                                                                      <option value="">Select instructor</option>
+                                                                      <?php
+                                                                      if (mysqli_num_rows($sql) > 0) {
+                                                                             while ($row = $sql->fetch_assoc()) {
+                                                                                    echo "<option value='" . htmlspecialchars($row['instructor_id'], ENT_QUOTES, 'UTF-8') . "'>" . htmlspecialchars($row['instructor_name'] . ' ' . $row['surname'], ENT_QUOTES, 'UTF-8') . "</option>";
+                                                                             }
+                                                                      }
+                                                                      ?>
+                                                               </select>
+                                                        </div>
+                                                 </div>
 
-                <label>Start Date</label>
-                <input type = "date" 
-                       name = "start_date"><br><br> 
+                                                 <div id="selected_instructor" class="notice" style="display:none;"></div>
 
-                <label>Start Time</label>
-                <input type = "time"
-                       name = "start_time"> <br><br> 
-
-                <label>Duration</label>
-                <input type = "text" 
-                       name = "lesson_duration"><br><br> 
-
-                <label>Instructor:</label>
-                <select name ="instructor_id" onchange="getInstructor(this.value)">
-                    <option value="instructor_id">Instructor Name</option>                
-                    <?php
-                    if (mysqli_num_rows($sql) > 0) {
-                        while ($row = $sql->fetch_assoc()) {
-                            echo "<option name='instructor_option' id='instructor_option' value='$row[instructor_id]'>$row[instructor_id].$row[instructor_name]</option>";
-                        }
-                    }
-                    ?>             
-                </select>
-                <br><br>
-
-                <input type="submit" 
-                       name="addClient" value=" Save Client "> 
-                <button onclick="location.href = 'index.php'" type="button">
-                    Exit</button>      
-
-                <p><hr width="1300">
-            </form>           
-            <?PHP
-            if (isset($session['client_id'])) {
-                echo $session['client_id'];
-            }
-            ?>
-        </div>        
-        <script src="js/instructor.js" type="text/javascript"></script>       
-    </body>
+                                                 <div class="button-row">
+                                                        <input type="submit" name="addClient" value="Save Booking">
+                                                        <button class="secondary" onclick="location.href = 'home.php'" type="button">Exit</button>
+                                                 </div>
+                                          </fieldset>
+                                   </form>
+                            </div>
+                     </section>
+              </div>
+              <script src="js/instructor.js" type="text/javascript"></script>
+       </body>
 </html>

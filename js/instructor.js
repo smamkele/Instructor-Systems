@@ -1,45 +1,58 @@
 
 function validateForm() {
-    if (document.login.username.value === "") {
+    if (document.login.username.value.trim() === "") {
         alert("Please enter username");
         document.login.username.focus();
         return false;
     }
-    if (document.login.password.value === "") {
+    if (document.login.password.value.trim() === "") {
         alert("Please enter password");
         document.login.password.focus();
         return false;
     }
 
-    return(true);
+    return true;
 }
 function submform() {
-    //all fiels are required
-    var result = true;
-    var msg = 'All fields must be completed!';
-    for (var i = 0; i < document.forms[0].length; ++i) {
-        if (document.forms[0][i].value === '') {
-            alert(msg);
-            document.forms[0][0].focus();
-            result = false;
+    var form = document.client;
+    var requiredFields = ["date", "client_id", "name", "surname", "address", "contact_number", "num_of_lessons", "start_date", "start_time", "lesson_duration", "instructor_id"];
+
+    for (var i = 0; i < requiredFields.length; i++) {
+        if (form[requiredFields[i]].value.trim() === "") {
+            alert("All fields must be completed!");
+            form[requiredFields[i]].focus();
+            return false;
         }
-        if (document.client.client_id.value !== '' && document.client.client_id.value.length < 13 || document.client.client_id.value.length > 13) {
-            alert("ID number must be 13 numbers long");
-            document.forms[0][1].focus();
-            result = false;
-        }
-        if (document.client.contact_number.value !== '' && document.client.contact_number.value.length < 10 || document.client.contact_number.value.length > 10) {
-            alert("Contact number must be 10 numbers long");
-            document.forms[0][1].focus();
-            result = false;
-        }
-        return result;
     }
+
+    if (!/^[0-9]{13}$/.test(form.client_id.value.trim())) {
+        alert("Identity number must be exactly 13 digits.");
+        form.client_id.focus();
+        return false;
+    }
+
+    if (!/^[0-9]{10}$/.test(form.contact_number.value.trim())) {
+        alert("Contact number must be exactly 10 digits.");
+        form.contact_number.focus();
+        return false;
+    }
+
+    if (!document.querySelector('input[name="gender"]:checked')) {
+        alert("Please select a gender.");
+        return false;
+    }
+
+    if (!document.querySelector('input[name="license_code"]:checked')) {
+        alert("Please select a license code.");
+        return false;
+    }
+
+    return true;
 }
 
 function getClient(str) {
     if (str === "") {
-        document.getElementById('selected_client').innerHtml = "";
+        document.getElementById('selected_client').innerHTML = "";
         return;
     } else {
         if (window.XMLHttpRequest) {
@@ -54,14 +67,15 @@ function getClient(str) {
                 document.getElementById("selected_client").innerHTML = this.responseText;
             }
         };
-        xmlhttp.open("GET", "getAttendance.php? q = " + str, true);
+        xmlhttp.open("GET", "getAttendance.php?q=" + encodeURIComponent(str), true);
         xmlhttp.send();
     }
 
 }
 function getInstructor(str) {
     if (str === "") {
-        document.getElementById('selected_instructor').innerHtml = "";
+        document.getElementById('selected_instructor').style.display = "none";
+        document.getElementById('selected_instructor').innerHTML = "";
         return;
     } else {
         if (window.XMLHttpRequest) {
@@ -74,9 +88,10 @@ function getInstructor(str) {
         xmlhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
                 document.getElementById("selected_instructor").innerHTML = this.responseText;
+                document.getElementById("selected_instructor").style.display = "block";
             }
         };
-        xmlhttp.open("GET", "addClient.php? q = " + str, true);
+        xmlhttp.open("GET", "getLesson.php?q=" + encodeURIComponent(str), true);
         xmlhttp.send();
     }
 

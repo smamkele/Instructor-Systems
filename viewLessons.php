@@ -1,49 +1,56 @@
 <!DOCTYPE html>
-<!--
-Provides Clients lesson bookings and adjust remaining lesson for each client
--->
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css/instructor.css" rel="stylesheet" type="text/css"/>
         <title>Lesson Booking</title>
     </head>
-  <h1 id="pghead"><b>Driving School Management</b></h1>     
-        <?php
-        require_once 'include/dbconn.php';
-        ?>
-        <table cellpadding="2" cellspacing="2" border="1">
-            <thead>
-                <tr>
-                    <th colspan="6">Lesson report</th>
-                </tr>
-                <tr>
-                    <th>Total lessons</th><th> Date lesson start</th><th>Lesson Start Time</th><th>Lesson duration</th><th>Client_id</th><th>Instructor </th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                $html = "";
-  
-                $recset = $conn->query("Select lesson.*,instructor.instructor_name from lesson,instructor where lesson.instructor_id=instructor.instructor_id" );
-                
-                if (mysqli_num_rows($recset) > 0) {
-                    while ($row = $recset->fetch_assoc()) {                       
-                        $html .= "<tr><td>$row[num_of_lessons]</td><td>$row[start_date]"
-                                . "</td><td>$row[start_time]</td><td>$row[lesson_duration]</td>"
-                                . "<td>$row[client_id]</td><td>$row[instructor_name]</td>"
-                                . "</tr>";
-                    }
-                    echo $html;
-                    
-                } else {
-                    exit("<p class='err'>Client list not found.</p>");
-                }
+    <?php
+    require_once 'include/auth.php';
+    require_once 'include/dbconn.php';
+    ?>
+    <body>
+        <div class="page-shell">
+            <header class="page-header">
+                <div>
+                    <h1 id="pghead">Lesson Report</h1>
 
-                mysqli_free_result($recset);
-                 
-                ?>
-            </tbody>
-        </table>  
+                </div>
+                <button class="button secondary" onclick="location.href = 'home.php'" type="button">Back to Dashboard</button>
+            </header>
+
+            <section class="card table-card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Total Lessons</th><th>Start Date</th><th>Start Time</th><th>Duration</th><th>Client ID</th><th>Instructor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $recset = $conn->query("SELECT lesson.*, instructor.instructor_name FROM lesson INNER JOIN instructor ON lesson.instructor_id = instructor.instructor_id ORDER BY lesson.start_date DESC, lesson.start_time ASC");
+
+                        if (mysqli_num_rows($recset) > 0) {
+                            while ($row = $recset->fetch_assoc()) {
+                                echo '<tr>';
+                                echo '<td>' . htmlspecialchars($row['num_of_lessons'], ENT_QUOTES, 'UTF-8') . '</td>';
+                                echo '<td>' . htmlspecialchars($row['start_date'], ENT_QUOTES, 'UTF-8') . '</td>';
+                                echo '<td>' . htmlspecialchars($row['start_time'], ENT_QUOTES, 'UTF-8') . '</td>';
+                                echo '<td>' . htmlspecialchars($row['lesson_duration'], ENT_QUOTES, 'UTF-8') . '</td>';
+                                echo '<td>' . htmlspecialchars($row['client_id'], ENT_QUOTES, 'UTF-8') . '</td>';
+                                echo '<td>' . htmlspecialchars($row['instructor_name'], ENT_QUOTES, 'UTF-8') . '</td>';
+                                echo '</tr>';
+                            }
+                        } else {
+                            echo '<tr><td colspan="6" class="muted">Lesson list not found.</td></tr>';
+                        }
+
+                        mysqli_free_result($recset);
+                        ?>
+                    </tbody>
+                </table>
+            </section>
+        </div>
     </body>
 </html>
